@@ -1,19 +1,7 @@
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>README.md</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="togglesheet.css">
-</head>
+# Optimization of matrix multiplication algorithms</h1>
 
-<body>
-
-<h1> # Optimization of matrix multiplication algorithms</h1>
-
-<p style="font-size: 20px; font-family: Arial, sans-serif, verdana;">This falls under High Performance Computing (HPC). It involves improving the performance of matrix multiplication algorithms through techniques such as blocking and compiler optimization. It also involves understanding the underlying hardware architecture and how it impacts the performance of the algorithm, and finding ways to optimize the code to take advantage of the hardware's features.
+This falls under High Performance Computing (HPC). It involves improving the performance of matrix multiplication algorithms through techniques such as blocking and compiler optimization. It also involves understanding the underlying hardware architecture and how it impacts the performance of the algorithm, and finding ways to optimize the code to take advantage of the hardware's features.
 
 ## Matrix Multiplication
 
@@ -35,8 +23,6 @@ In the implementation of the blocking method, the blocking factor B was set to 8
 
 The optimal blocking factor was determined by varying the blocking factor B and measuring the execution time for each configuration. The optimal blocking factor depends on the size of the matrices, the cache size of the system, and the specifics of the implementation.
 
-In conclusion, the blocking method provides a significant improvement in performance over the traditional method for matrix multiplication, especially for large-scale matrices. The choice of the optimal blocking factor is a trade-off between the overhead of dividing the matrices into blocks and the reduction in cache misses and computation time. The blocking method is a powerful technique that can be used to improve the performance of many other algorithms and operations.</p>
+In conclusion, the blocking method provides a significant improvement in performance over the traditional method for matrix multiplication, especially for large-scale matrices. The choice of the optimal blocking factor is a trade-off between the overhead of dividing the matrices into blocks and the reduction in cache misses and computation time. The blocking method is a powerful technique that can be used to improve the performance of many other algorithms and operations.
 
-</body>
 
-</html>
