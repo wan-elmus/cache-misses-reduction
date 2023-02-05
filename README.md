@@ -11,7 +11,7 @@
 
 <body>
 
-# Optimization of matrix multiplication algorithms
+<h1> # Optimization of matrix multiplication algorithms</h1>
 
 <p style="font-size: 20px; font-family: Arial, sans-serif;">This falls under High Performance Computing (HPC). It involves improving the performance of matrix multiplication algorithms through techniques such as blocking and compiler optimization. It also involves understanding the underlying hardware architecture and how it impacts the performance of the algorithm, and finding ways to optimize the code to take advantage of the hardware's features.
 
