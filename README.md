@@ -25,4 +25,3 @@ The optimal blocking factor was determined by varying the blocking factor B and 
 
 In conclusion, the blocking method provides a significant improvement in performance over the traditional method for matrix multiplication, especially for large-scale matrices. The choice of the optimal blocking factor is a trade-off between the overhead of dividing the matrices into blocks and the reduction in cache misses and computation time. The blocking method is a powerful technique that can be used to improve the performance of many other algorithms and operations.
 
-

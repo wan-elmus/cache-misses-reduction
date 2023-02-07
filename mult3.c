@@ -1,28 +1,29 @@
 
-// While using the blocking method, set the array size N to 2048, and vary the blocking factor B from 4 to 512 (in power of two only)
+/*
+using the blocking method,set the array size N to 2048 and vary the blocking factor B from 4 to 512(in power of two only)
+To achieve this I only modified the main function.
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
-
-#define N 1024
 
 double **A;
 double **B;
 double **C;
 
 // Initialize matrices A and B with random numbers and set matrix C to 0
-void init_matrices()
+void init_matrices(int size)
 {
-    A = malloc(N * sizeof(double *));
-    B = malloc(N * sizeof(double *));
-    C = malloc(N * sizeof(double *));
-    for (int i = 0; i < N; i++)
+    A = malloc(size * sizeof(double *));
+    B = malloc(size * sizeof(double *));
+    C = malloc(size * sizeof(double *));
+    for (int i = 0; i < size; i++)
     {
-        A[i] = malloc(N * sizeof(double));
-        B[i] = malloc(N * sizeof(double));
-        C[i] = malloc(N * sizeof(double));
-        for (int j = 0; j < N; j++)
+        A[i] = malloc(size * sizeof(double));
+        B[i] = malloc(size * sizeof(double));
+        C[i] = malloc(size * sizeof(double));
+        for (int j = 0; j < size; j++)
         {
             A[i][j] = (double)rand() / RAND_MAX;
             B[i][j] = (double)rand() / RAND_MAX;
@@ -32,22 +33,21 @@ void init_matrices()
 }
 
 // Perform matrix multiplication on matrices A and B and store the result in matrix C
-
-void matrix_mult_block(int N, int B)
+void matrix_mult_blocked(int size, int B)
 {
-    for (int i = 0; i < N; i += B)
+    for (int i = 0; i < size; i += B)
     {
-        for (int j = 0; j < N; j += B)
+        for (int j = 0; j < size; j += B)
         {
-            for (int k = 0; k < N; k += B)
+            for (int k = 0; k < size; k += B)
             {
-                for (int i1 = i; i1 < i + B; i1++)
+                for (int ii = i; ii < i + B; ii++)
                 {
-                    for (int j1 = j; j1 < j + B; j1++)
+                    for (int jj = j; jj < j + B; jj++)
                     {
-                        for (int k1 = k; k1 < k + B; k1++)
+                        for (int kk = k; kk < k + B; kk++)
                         {
-                            C[i1][j1] += A[i1][k1] * B[k1][j1];
+                            C[ii][jj] += A[ii][kk] * B[kk][jj];
                         }
                     }
                 }
@@ -59,39 +59,24 @@ void matrix_mult_block(int N, int B)
 int main()
 {
     struct timeval start, end;
-    init_matrices();
-
-    for (int b = 4; b <= 512; b *= 2)
+    int N = 2048;
+    for (int B = 4; B <= 512; B *= 2)
     {
+        init_matrices(N);
         gettimeofday(&start, NULL);
-        matrix_mult_block(2048, b);
+        matrix_mult_blocked(N, B);
         gettimeofday(&end, NULL);
         double elapsed_time = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
-        printf("Blocking factor: %d, Elapsed time: %lf microseconds\n", b, elapsed_time);
+        printf("Elapsed time for B %d: %lf microseconds\n", B, elapsed_time);
+        for (int i = 0; i < N; i++)
+        {
+            free(A[i]);
+            free(B[i]);
+            free(C[i]);
+        }
+        free(A);
+        free(B);
+        free(C);
     }
-
     return 0;
 }
-
-/*
-int main()
-{
-    struct timeval start, end;
-    init_matrices();
-    gettimeofday(&start, NULL);
-    matrix_mult();
-    gettimeofday(&end, NULL);
-    double elapsed_time = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
-    printf("Elapsed time: %lf microseconds\n", elapsed_time);
-    for (int i = 0; i < N; i++)
-    {
-        free(A[i]);
-        free(B[i]);
-        free(C[i]);
-    }
-    free(A);
-    free(B);
-    free(C);
-    return 0;
-}
-*/
