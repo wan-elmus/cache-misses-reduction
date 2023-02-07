@@ -1,5 +1,6 @@
 
-/*
+/*Implement the blocking method, set the blocking factor B to 8, and vary the array size as above (from	N = 16 to 4096)
+
 Inorder to implement the blocking factor, I modified the matrix multiplication code. Instead of performing the matrix multiplication on the entire matrices A and B at once,I performed the matrix multiplication on smaller sub-matrices of size size/B, where B is the blocking factor.
 
 And then, in the main function, I called the matrix_mult_blocked instead of matrix_mult and passed the blocking factor B=8 as an argument:
@@ -48,7 +49,7 @@ void matrix_mult_blocked(int size, int B)
                     {
                         for (int kk = k; kk < k + B; kk++)
                         {
-                            C[ii][jj] += A[ii][kk] * B[kk][jj];
+                            C[ii][jj] += *(*(A + ii) + kk) * *(*(B + kk) + jj);
                         }
                     }
                 }
