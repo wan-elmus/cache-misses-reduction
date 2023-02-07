@@ -1,3 +1,6 @@
+
+// Changing the value of N=16 and doubling it till 4096
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
@@ -47,15 +50,11 @@ int main()
 {
     struct timeval start, end;
     init_matrices();
-    // Get the start time before performing matrix multiplication
     gettimeofday(&start, NULL);
     matrix_mult();
-    // Get the end time after performing matrix multiplication
     gettimeofday(&end, NULL);
-    // Calculate the elapsed time in microseconds
     double elapsed_time = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
     printf("Elapsed time: %lf microseconds\n", elapsed_time);
-    // Deallocate memory used by matrices A, B, and C
     for (int i = 0; i < N; i++)
     {
         free(A[i]);

@@ -1,3 +1,5 @@
+// Original code with malloc()
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
@@ -8,6 +10,7 @@ double **A;
 double **B;
 double **C;
 
+// Initialize matrices A and B with random numbers and set matrix C to 0
 void init_matrices()
 {
     A = malloc(N * sizeof(double *));
@@ -27,6 +30,7 @@ void init_matrices()
     }
 }
 
+// Perform matrix multiplication on matrices A and B and store the result in matrix C
 void matrix_mult()
 {
     for (int i = 0; i < N; i++)

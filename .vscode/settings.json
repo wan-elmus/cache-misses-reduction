@@ -32,5 +32,10 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "files.associations": {
+    "*.cpp": "cpp",
+    "stdlib.h": "c",
+    "stdio.h": "c"
+  }
 }
