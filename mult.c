@@ -1,23 +1,28 @@
+// Original code with malloc()
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
 
 #define N 1024
 
-double A[N][N], B[N][N], C[N][N];
+double **A;
+double **B;
+double **C;
 
-<<<<<<< HEAD
-void init_matrices() {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-=======
+// Initialize matrices A and B with random numbers and set matrix C to 0
 void init_matrices()
 {
+    A = malloc(N * sizeof(double *));
+    B = malloc(N * sizeof(double *));
+    C = malloc(N * sizeof(double *));
     for (int i = 0; i < N; i++)
     {
+        A[i] = malloc(N * sizeof(double));
+        B[i] = malloc(N * sizeof(double));
+        C[i] = malloc(N * sizeof(double));
         for (int j = 0; j < N; j++)
         {
->>>>>>> 425a639256ea2de31346dbcad81a3fbc8f3a354e
             A[i][j] = (double)rand() / RAND_MAX;
             B[i][j] = (double)rand() / RAND_MAX;
             C[i][j] = 0.0;
@@ -25,12 +30,7 @@ void init_matrices()
     }
 }
 
-<<<<<<< HEAD
-void matrix_mult() {
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            for (int k = 0; k < N; k++) {
-=======
+// Perform matrix multiplication on matrices A and B and store the result in matrix C
 void matrix_mult()
 {
     for (int i = 0; i < N; i++)
@@ -39,19 +39,14 @@ void matrix_mult()
         {
             for (int k = 0; k < N; k++)
             {
->>>>>>> 425a639256ea2de31346dbcad81a3fbc8f3a354e
                 C[i][j] += A[i][k] * B[k][j];
             }
         }
     }
 }
 
-<<<<<<< HEAD
-int main() {
-=======
 int main()
 {
->>>>>>> 425a639256ea2de31346dbcad81a3fbc8f3a354e
     struct timeval start, end;
     init_matrices();
     gettimeofday(&start, NULL);
@@ -59,5 +54,14 @@ int main()
     gettimeofday(&end, NULL);
     double elapsed_time = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
     printf("Elapsed time: %lf microseconds\n", elapsed_time);
+    for (int i = 0; i < N; i++)
+    {
+        free(A[i]);
+        free(B[i]);
+        free(C[i]);
+    }
+    free(A);
+    free(B);
+    free(C);
     return 0;
 }
