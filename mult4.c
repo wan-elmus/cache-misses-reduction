@@ -1,10 +1,7 @@
 
-
-/*Implement the blocking method, set the blocking factor B to 8, and vary the array size as above (from	N = 16 to 4096)
-
-Inorder to implement the blocking factor, I modified the matrix multiplication code. Instead of performing the matrix multiplication on the entire matrices A and B at once,I performed the matrix multiplication on smaller sub-matrices of size size/B, where B is the blocking factor.
-
-And then, in the main function, I called the matrix_mult_blocked instead of matrix_mult and passed the blocking factor B=8 as an argument:
+/*
+using the blocking method,set the array size N to 2048 and vary the blocking factor B from 4 to 512(in power of two only)
+To achieve this I only modified the main function.
 */
 
 #include <stdio.h>
@@ -15,7 +12,7 @@ double **P;
 double **Q;
 double **R;
 
-// Initialize matrices P and Q with random numbers and set matrix R to 0
+// Initialize matrices A and B with random numbers and set matrix C to 0
 void init_matrices(int size)
 {
     P = malloc(size * sizeof(double *));
@@ -35,7 +32,7 @@ void init_matrices(int size)
     }
 }
 
-// Perform matrix multiplication on matrices P and Q and store the result in matrix R
+// Perform matrix multiplication on matrices A and B and store the result in matrix C
 void matrix_mult_blocked(int size, int B)
 {
     for (int i = 0; i < size; i += B)
@@ -62,16 +59,16 @@ void matrix_mult_blocked(int size, int B)
 int main()
 {
     struct timeval start, end;
-    for (int size = 16; size <= 4096; size *= 2)
+    int N = 2048;
+    for (int B = 4; B <= 512; B *= 2)
     {
-        init_matrices(size);
+        init_matrices(N);
         gettimeofday(&start, NULL);
-        matrix_mult_blocked(size, 8);
+        matrix_mult_blocked(N, B);
         gettimeofday(&end, NULL);
-        double elapsed_time = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
-        printf("Elapsed time for size %d: %d seconds %d microseconds\n", size, (int)elapsed_time, (int)((elapsed_time - (int)elapsed_time) * 1000000));
-
-        for (int i = 0; i < size; i++)
+        double elapsed_time = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
+        printf("Elapsed time for B %d: %lf microseconds\n", B, elapsed_time);
+        for (int i = 0; i < N; i++)
         {
             free(P[i]);
             free(Q[i]);
