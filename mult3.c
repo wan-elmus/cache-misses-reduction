@@ -66,8 +66,9 @@ int main()
         gettimeofday(&start, NULL);
         matrix_mult_blocked(N, B);
         gettimeofday(&end, NULL);
-        double elapsed_time = (end.tv_sec - start.tv_sec) * 1000000.0 + (end.tv_usec - start.tv_usec);
-        printf("Elapsed time for B %d: %lf microseconds\n", B, elapsed_time);
+        double elapsed_time = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1000000.0;
+        printf("Elapsed time for size %d: %d seconds %d microseconds\n", size, (int)elapsed_time, (int)((elapsed_time - (int)elapsed_time) * 1000000));
+
         for (int i = 0; i < N; i++)
         {
             free(A[i]);

@@ -28,6 +28,13 @@ void init_matrices(int size)
         {
             A[i][j] = (double)rand() / RAND_MAX;
             B[i][j] = (double)rand() / RAND_MAX;
+        }
+    }
+
+    for (int i = 0; i < size; i++)
+    {
+        for (int j = 0; j < size; j++)
+        {
             C[i][j] = 0.0;
         }
     }
@@ -48,7 +55,7 @@ void matrix_mult_blocked(int size, int B)
                     {
                         for (int kk = k; kk < k + B; kk++)
                         {
-                            *(*(C + ii) + jj) += *(*(A + ii) + kk) * *(*(B + kk) + jj);
+                            C[ii][jj] += A[ii][kk] * B[kk][jj];
                         }
                     }
                 }
