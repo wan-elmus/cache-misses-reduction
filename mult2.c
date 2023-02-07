@@ -10,26 +10,26 @@ And then, in the main function, I called the matrix_mult_blocked instead of matr
 #include <stdlib.h>
 #include <sys/time.h>
 
-double **A;
-double **B;
-double **C;
+double **P;
+double **Q;
+double **R;
 
 // Initialize matrices A and B with random numbers and set matrix C to 0
 void init_matrices(int size)
 {
-    A = malloc(size * sizeof(double *));
-    B = malloc(size * sizeof(double *));
-    C = malloc(size * sizeof(double *));
+    P = malloc(size * sizeof(double *));
+    Q = malloc(size * sizeof(double *));
+    R = malloc(size * sizeof(double *));
     for (int i = 0; i < size; i++)
     {
-        A[i] = malloc(size * sizeof(double));
-        B[i] = malloc(size * sizeof(double));
-        C[i] = malloc(size * sizeof(double));
+        P[i] = malloc(size * sizeof(double));
+        Q[i] = malloc(size * sizeof(double));
+        R[i] = malloc(size * sizeof(double));
         for (int j = 0; j < size; j++)
         {
-            A[i][j] = (double)rand() / RAND_MAX;
-            B[i][j] = (double)rand() / RAND_MAX;
-            C[i][j] = 0.0;
+            P[i][j] = (double)rand() / RAND_MAX;
+            Q[i][j] = (double)rand() / RAND_MAX;
+            R[i][j] = 0.0;
         }
     }
 }
@@ -49,7 +49,7 @@ void matrix_mult_blocked(int size, int B)
                     {
                         for (int kk = k; kk < k + B; kk++)
                         {
-                            C[ii][jj] += A[ii][kk] * B[kk][jj];
+                            R[ii][jj] += P[ii][kk] * Q[kk][jj];
                         }
                     }
                 }
@@ -72,13 +72,13 @@ int main()
 
         for (int i = 0; i < size; i++)
         {
-            free(A[i]);
-            free(B[i]);
-            free(C[i]);
+            free(P[i]);
+            free(Q[i]);
+            free(R[i]);
         }
-        free(A);
-        free(B);
-        free(C);
+        free(P);
+        free(Q);
+        free(R);
     }
     return 0;
 }
